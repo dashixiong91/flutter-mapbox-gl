@@ -9,11 +9,19 @@ dependencies:
   mapbox_gl_platform_interface:
     git:
       url: https://github.com/dashixiong91/flutter-mapbox-gl.git
+      ref: feature/hybrid-composition
       path: mapbox_gl_platform_interface
   mapbox_gl_web:
     git:
       url: https://github.com/dashixiong91/flutter-mapbox-gl.git
+      ref: feature/hybrid-composition
       path: mapbox_gl_web
+
+dependency_overrides:
+  mapbox_gl_platform_interface:
+    path: ./mapbox_gl_platform_interface
+  mapbox_gl_web:
+    path: ./mapbox_gl_web      
 
 flutter:
   plugin:
