@@ -37,6 +37,7 @@ class MapboxMap extends StatefulWidget {
     this.onCameraTrackingChanged,
     this.onCameraIdle,
     this.onMapIdle,
+    this.useHybridComposition = false,
   })  : assert(initialCameraPosition != null),
         super(key: key);
 
@@ -170,6 +171,13 @@ class MapboxMap extends StatefulWidget {
   /// * All fade/transition animations have completed
   final OnMapIdleCallback onMapIdle;
 
+  ///Set to `true` to enable Flutter's new Hybrid Composition. The default value is `false`.
+  ///Hybrid Composition is supported starting with Flutter v1.20+.
+  ///
+  ///**NOTE**: It is recommended to use Hybrid Composition only on Android 10+ for a release app,
+  ///as it can cause framerate drops on animations in Android 9 and lower (see [Hybrid-Composition#performance](https://github.com/flutter/flutter/wiki/Hybrid-Composition#performance)).
+  final bool useHybridComposition;
+
   @override
   State createState() => _MapboxMapState();
 }
@@ -189,7 +197,7 @@ class _MapboxMapState extends State<MapboxMap> {
       'accessToken': widget.accessToken,
     };
     return _mapboxGlPlatform.buildView(
-        creationParams, onPlatformViewCreated, widget.gestureRecognizers);
+        creationParams, onPlatformViewCreated, widget.gestureRecognizers, useHybridComposition: widget.useHybridComposition);
   }
 
   @override

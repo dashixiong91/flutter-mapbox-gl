@@ -73,7 +73,9 @@ abstract class MapboxGlPlatform {
   Widget buildView(
       Map<String, dynamic> creationParams,
       Function onPlatformViewCreated,
-      Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers) {
+      Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers,{
+        bool useHybridComposition = false,
+      }) {
     throw UnimplementedError('buildView() has not been implemented.');
   }
 

@@ -107,8 +107,37 @@ class MethodChannelMapboxGl extends MapboxGlPlatform {
   Widget buildView(
       Map<String, dynamic> creationParams,
       Function onPlatformViewCreated,
-      Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers) {
+      Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers,{
+        bool useHybridComposition = false,
+      }) {
     if (defaultTargetPlatform == TargetPlatform.android) {
+      if(useHybridComposition ?? false){
+         return PlatformViewLink(
+          viewType: 'plugins.flutter.io/mapbox_gl',
+          surfaceFactory: (
+              BuildContext context,
+              PlatformViewController controller,
+              ) {
+            return AndroidViewSurface(
+              controller: controller,
+              gestureRecognizers: gestureRecognizers ?? const <Factory<OneSequenceGestureRecognizer>>{},
+              hitTestBehavior: PlatformViewHitTestBehavior.opaque,
+            );
+          },
+          onCreatePlatformView: (PlatformViewCreationParams params) {
+            return PlatformViewsService.initSurfaceAndroidView(
+              id: params.id,
+              viewType: 'plugins.flutter.io/mapbox_gl',
+              layoutDirection: TextDirection.ltr,
+              creationParams: creationParams,
+              creationParamsCodec: const StandardMessageCodec(),
+            )
+              ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
+              ..addOnPlatformViewCreatedListener(onPlatformViewCreated)
+              ..create();
+          },
+        );
+      }
       return AndroidView(
         viewType: 'plugins.flutter.io/mapbox_gl',
         onPlatformViewCreated: onPlatformViewCreated,

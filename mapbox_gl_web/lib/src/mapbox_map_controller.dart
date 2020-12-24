@@ -22,7 +22,9 @@ class MapboxMapController extends MapboxGlPlatform
   Widget buildView(
       Map<String, dynamic> creationParams,
       Function onPlatformViewCreated,
-      Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers) {
+      Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers,{
+        bool useHybridComposition = false,
+      }) {
     _creationParams = creationParams;
     _registerViewFactory(onPlatformViewCreated, this.hashCode);
     return HtmlElementView(

@@ -241,9 +241,11 @@ class MapboxMapController extends ChangeNotifier {
   Widget buildView(
       Map<String, dynamic> creationParams,
       Function onPlatformViewCreated,
-      Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers) {
+      Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers,{
+        bool useHybridComposition = false,
+      }) {
     return MapboxGlPlatform.getInstance(_id)
-        .buildView(creationParams, onPlatformViewCreated, gestureRecognizers);
+        .buildView(creationParams, onPlatformViewCreated, gestureRecognizers, useHybridComposition: useHybridComposition);
   }
 
   /// Updates configuration options of the map user interface.
