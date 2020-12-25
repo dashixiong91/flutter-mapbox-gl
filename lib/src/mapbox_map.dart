@@ -188,6 +188,7 @@ class _MapboxMapState extends State<MapboxMap> {
 
   _MapboxMapOptions _mapboxMapOptions;
   final MapboxGlPlatform _mapboxGlPlatform = MapboxGlPlatform.createInstance();
+  int _id;
 
   @override
   Widget build(BuildContext context) {
@@ -204,6 +205,13 @@ class _MapboxMapState extends State<MapboxMap> {
   void initState() {
     super.initState();
     _mapboxMapOptions = _MapboxMapOptions.fromWidget(widget);
+  }
+  @override
+  void dispose(){
+    if(_id != null){
+      MapboxGlPlatform.removeInstance(_id);
+    }
+    super.dispose();
   }
 
   @override
@@ -225,6 +233,7 @@ class _MapboxMapState extends State<MapboxMap> {
   }
 
   Future<void> onPlatformViewCreated(int id) async {
+    _id = id;
     MapboxGlPlatform.addInstance(id, _mapboxGlPlatform);
     final MapboxMapController controller = MapboxMapController.init(
       id,

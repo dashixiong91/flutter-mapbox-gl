@@ -17,6 +17,9 @@ abstract class MapboxGlPlatform {
   static void addInstance(int id, MapboxGlPlatform platform) {
     _instances[id] = platform;
   }
+  static void removeInstance(int id) {
+    _instances.remove(id);
+  }
 
   static MapboxGlPlatform getInstance(int id) {
     return _instances[id];
