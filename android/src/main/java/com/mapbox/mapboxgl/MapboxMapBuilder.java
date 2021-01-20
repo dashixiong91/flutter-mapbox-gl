@@ -59,6 +59,7 @@ class MapboxMapBuilder implements MapboxMapOptionsSink {
 
   @Override
   public void setStyleString(String styleString) {
+    options.localIdeographFontFamilyEnabled(true).localIdeographFontFamily("monospace");
     this.styleString = styleString;
     //options. styleString(styleString);
   }
